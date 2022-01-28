@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <script>
+        // init vConsole
+        var vConsole = new VConsole();
+        console.log('Hello world');
+    </script>
+</head>
+
+<body>
+    <div id="sel"></div>
+    <input id="phone" type="text" placeholder="phone" />
+    <button onclick="login()">立即登记</button>
+    <script>
+        const citys = [
+            {
+                name: "漳州",
+                id: '0'
+            },
+            {
+                name: "厦门",
+                id: '1'
+            },
+            {
+                name: "泉州",
+                id: '2'
+            }
+        ]
+        const select = document.createElement("select");
+        select.id = "select"
+        citys.map(item => {
+            const op1 = document.createElement("option");
+            op1.value = item.name
+            op1.innerText = item.name
+            select.appendChild(op1);
+            document.getElementById("sel").appendChild(select)
+        })
+
+        function login() {
+            const phoneNum = document.querySelector("#phone").value
+            const city = document.querySelector("#select").value
+            axios({
+                url: "http://192.168.200.107:3600/register",
+                method: "POST",
+                data: {
+                    phoneNum: Number(phoneNum),
+                    city
+                }
+            }).then(res => {
+                console.log(res)
+            })
+        }
+    </script>
+</body>
+
+</html>
